@@ -5,20 +5,13 @@
  * 图片自动转 base64 内联 → WeKnora 后台自动转存到对象存储并改写 URL
  */
 
+import { Plugin, Dialog } from "siyuan";
 import { loadConfig, saveConfig, DEFAULT_CONFIG, type SyncConfig } from "./settings";
 import { listNotebooks } from "./siyuan-api";
 import { listKnowledgeBases, validateConfig, type WeKnoraKB } from "./weknora-api";
 import { startSync, type SyncProgress, type SyncHandle } from "./sync";
 
-// `siyuan` 包提供 Plugin 基类的类型声明（仅类型，无运行时代码）。
-// 运行时 Plugin 父类由思源通过 window.siyuan.Plugin 注入。
-// 这里通过 window.siyuan.Plugin 动态获取，避免 require("siyuan") 在运行时失败
-function getSiyuanPluginBase(): any {
-  const w: any = (typeof window !== "undefined" ? window : (globalThis as any));
-  return w?.siyuan?.Plugin || class {};
-}
-
-class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
+class WeKnoraSyncPlugin extends Plugin {
   private cfg: SyncConfig = { ...DEFAULT_CONFIG };
   private currentSync: SyncHandle | null = null;
 
@@ -33,7 +26,6 @@ class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
 
     this.addCommand({
       icon: "iconUpload",
-      langKey: "weknoraSync",
       hotkey: "",
       description: "同步思源笔记到 WeKnora",
       callback: () => this.openMainDialog(),
@@ -55,10 +47,9 @@ class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
   private async openMainDialog() {
     this.cfg = await loadConfig(this);
 
-    const dialog = new (window as any).siyuan.dialog({
+    const dialog = new Dialog({
       title: "WeKnora 同步",
       width: "720px",
-      height: "640px",
       content: this.renderMainHtml(),
     });
 

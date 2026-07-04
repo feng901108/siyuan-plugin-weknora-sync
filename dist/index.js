@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: "Module" } });
+const siyuan = require("siyuan");
 const DEFAULT_CONFIG = {
   weknoraBaseUrl: "http://localhost:8080",
   weknoraApiKey: "",
@@ -334,13 +335,7 @@ function startSync(plugin, cfg, onProgress) {
     getProgress: () => progress
   };
 }
-function getSiyuanPluginBase() {
-  var _a;
-  const w = typeof window !== "undefined" ? window : globalThis;
-  return ((_a = w == null ? void 0 : w.siyuan) == null ? void 0 : _a.Plugin) || class {
-  };
-}
-class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
+class WeKnoraSyncPlugin extends siyuan.Plugin {
   constructor() {
     super(...arguments);
     this.cfg = { ...DEFAULT_CONFIG };
@@ -355,7 +350,6 @@ class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
     });
     this.addCommand({
       icon: "iconUpload",
-      langKey: "weknoraSync",
       hotkey: "",
       description: "同步思源笔记到 WeKnora",
       callback: () => this.openMainDialog()
@@ -372,10 +366,9 @@ class WeKnoraSyncPlugin extends getSiyuanPluginBase() {
   /** 打开主对话框 */
   async openMainDialog() {
     this.cfg = await loadConfig(this);
-    const dialog = new window.siyuan.dialog({
+    const dialog = new siyuan.Dialog({
       title: "WeKnora 同步",
       width: "720px",
-      height: "640px",
       content: this.renderMainHtml()
     });
     const el = dialog.element.querySelector(".b3-dialog__container > div");
