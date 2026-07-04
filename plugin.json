@@ -1,0 +1,24 @@
+{
+  "name": "weknora-sync",
+  "author": "weknora",
+  "url": "https://github.com/feng901108/siyuan-plugin-weknora-sync",
+  "version": "0.1.0",
+  "minAppVersion": "3.0.0",
+  "backends": ["all"],
+  "frontends": ["desktop"],
+  "displayName": {
+    "default": "WeKnora Sync",
+    "zh_CN": "WeKnora 同步"
+  },
+  "description": {
+    "default": "Sync SiYuan notes (with images) to WeKnora knowledge base via API. Images are inlined as base64 so WeKnora will persist them to object storage automatically.",
+    "zh_CN": "将思源笔记文档（含图片）通过 API 同步到 WeKnora 知识库。图片会被内联为 base64，WeKnora 会自动转存到对象存储。"
+  },
+  "readme": {
+    "default": "README.md",
+    "zh_CN": "README_zh_CN.md"
+  },
+  "icon": "icon.png",
+  "preview": "preview.png",
+  "main": "dist/index.js"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "siyuan-plugin-weknora-sync",
+  "version": "0.1.0",
+  "description": "Sync SiYuan notes (with images) to WeKnora knowledge base",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build",
+    "package": "vite build && zip -r package.zip dist/ icon.png preview.png plugin.json README.md README_zh_CN.md"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0",
+    "@types/node": "^20.11.0",
+    "siyuan": "^1.0.5"
+  }
+}
+
