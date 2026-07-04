@@ -2,7 +2,8 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 
 // 思源插件打包为 CommonJS 单文件，输出到 dist/index.js
-// 入口文件需 `module.exports = <Plugin 子类>` 或 `exports.default = ...`
+// 思源插件加载器通过 require() 拿到模块，期望 module.exports = PluginClass
+// 因此使用 exports: "default"，让 export default 编译为 module.exports = ...
 // `siyuan` 包是纯类型声明（无运行时代码），必须 external 掉，运行时由思源注入
 export default defineConfig({
   build: {
@@ -20,7 +21,7 @@ export default defineConfig({
       output: {
         entryFileNames: "index.js",
         assetFileNames: "[name].[ext]",
-        exports: "named",
+        exports: "default",
       },
     },
   },

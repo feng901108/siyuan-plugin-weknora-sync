@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperties(exports, { __esModule: { value: true }, [Symbol.toStringTag]: { value: "Module" } });
 const siyuan = require("siyuan");
 const DEFAULT_CONFIG = {
   weknoraBaseUrl: "http://localhost:8080",
@@ -571,4 +570,4 @@ class WeKnoraSyncPlugin extends siyuan.Plugin {
     }
   }
 }
-exports.default = WeKnoraSyncPlugin;
+module.exports = WeKnoraSyncPlugin;
